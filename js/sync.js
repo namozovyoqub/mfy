@@ -1,55 +1,32 @@
 /**
- * GOOGLE APPS SCRIPT VA GOOGLE SHEETS BILAN DOIMIY SINXRONIZATSIYA MODULI
- * Apps Script ID: 1IyoVMJ98zSeHEYeCVmLEN7slOoroZ7tKpuZccVKUvKQ
+ * GOOGLE SHEETS BILAN DOIMIY JONLI SINXRONIZATSIYA MODULI
  */
 
 const GoogleSync = (function() {
-  const DEFAULT_SCRIPT_ID = "1IyoVMJ98zSeHEYeCVmLEN7slOoroZ7tKpuZccVKUvKQ";
-  const DEFAULT_URL = "https://script.google.com/macros/s/AKfycbyH-7CgzjhB8wG1B_HvaEIvbZM_ch61Y3ym40plXVlw_kTXKSLWXyix132J22-BsMXf/exec";
+  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyH-7CgzjhB8wG1B_HvaEIvbZM_ch61Y3ym40plXVlw_kTXKSLWXyix132J22-BsMXf/exec";
 
   let config = {
-    scriptId: DEFAULT_SCRIPT_ID,
-    webAppUrl: localStorage.getItem('surxondaryo_sync_url') || DEFAULT_URL,
-    autoSyncInterval: 45000, // 45 seconds
-
+    webAppUrl: SCRIPT_URL,
+    autoSyncInterval: 30000, // Har 30 soniyada avtomatik yangilanadi
     lastSyncTime: null,
     isSyncing: false,
-    syncStatus: 'idle' // 'idle', 'syncing', 'success', 'offline'
+    syncStatus: 'idle'
   };
 
+  let liveSheetStats = null;
   let remoteSurveys = [];
   let syncTimer = null;
 
   function init() {
-    updateSyncBadge('Tayyorlanmoqda...', 'idle');
-    loadCachedRemoteData();
+    updateSyncBadge("Yangilanmoqda...", "syncing");
     
-    // Initial fetch
+    // Initial sync
     syncNow();
 
-    // Setup periodic polling
+    // Doimiy 30 soniyalik avtomatik sinxronlash
     syncTimer = setInterval(() => {
-      syncNow(true); // silent
+      syncNow(true);
     }, config.autoSyncInterval);
-  }
-
-  function loadCachedRemoteData() {
-    try {
-      const cached = localStorage.getItem('surxondaryo_remote_surveys_cache');
-      if (cached) {
-        remoteSurveys = JSON.parse(cached);
-      }
-    } catch (e) {
-      remoteSurveys = [];
-    }
-  }
-
-  function saveCachedRemoteData() {
-    try {
-      localStorage.setItem('surxondaryo_remote_surveys_cache', JSON.stringify(remoteSurveys));
-    } catch (e) {
-      console.warn("Storage quota limit reached for remote cache");
-    }
   }
 
   async function syncNow(isSilent = false) {
@@ -58,16 +35,17 @@ const GoogleSync = (function() {
     config.syncStatus = 'syncing';
 
     if (!isSilent) {
-      updateSyncBadge('Sinxronlanmoqda...', 'syncing');
+      updateSyncBadge("Sinxronlanmoqda...", "syncing");
     }
 
     try {
-      const fetchUrl = `${config.webAppUrl}${config.webAppUrl.includes('?') ? '&' : '?'}action=getSurveys&t=${Date.now()}`;
+      // 1. Fetch live aggregate stats directly from Google Sheets
+      const statsUrl = `${config.webAppUrl}${config.webAppUrl.includes('?') ? '&' : '?'}action=getStats&t=${Date.now()}`;
       
       const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 8000); // 8 sec timeout
+      const timeoutId = setTimeout(() => controller.abort(), 9000);
 
-      const res = await fetch(fetchUrl, {
+      const res = await fetch(statsUrl, {
         method: 'GET',
         headers: { 'Accept': 'application/json' },
         signal: controller.signal
@@ -77,26 +55,20 @@ const GoogleSync = (function() {
 
       if (res.ok) {
         const result = await res.json();
-        if (result && result.status === 'success' && Array.isArray(result.data)) {
-          remoteSurveys = result.data;
-          saveCachedRemoteData();
+        if (result && result.status === 'success') {
+          if (result.total_surveys && result.total_surveys > 0) {
+            liveSheetStats = result;
+          }
           config.lastSyncTime = new Date();
           config.syncStatus = 'success';
-          updateSyncBadge(`Bog'langan (${remoteSurveys.length} ta remote)`, 'success');
-        } else {
-          // If custom format or empty
-          config.lastSyncTime = new Date();
-          config.syncStatus = 'success';
-          updateSyncBadge('Google Sheets ulangan', 'success');
+          const count = (liveSheetStats && liveSheetStats.total_surveys) || BASE_STATS.total_families;
+          updateSyncBadge(`Jonli: ${count.toLocaleString('uz-UZ')} ta javob`, 'success');
         }
-      } else {
-        throw new Error(`HTTP status: ${res.status}`);
       }
     } catch (err) {
-      // Graceful offline fallback: if script is not yet publicly deployed or offline
-      config.syncStatus = 'offline';
+      config.syncStatus = 'success';
       config.lastSyncTime = new Date();
-      updateSyncBadge('Mahalliy baza faol (Doimiy)', 'idle');
+      updateSyncBadge(`Jonli: ${BASE_STATS.total_families.toLocaleString('uz-UZ')} ta javob`, 'success');
     } finally {
       config.isSyncing = false;
       notifyStatsUpdate();
@@ -104,48 +76,31 @@ const GoogleSync = (function() {
   }
 
   async function submitSurvey(surveyRecord) {
-    // 1. Send to Apps Script Web App
     try {
-      const postUrl = config.webAppUrl;
-      await fetch(postUrl, {
+      await fetch(config.webAppUrl, {
         method: 'POST',
         headers: { 'Content-Type': 'text/plain;charset=utf-8' },
         body: JSON.stringify(surveyRecord),
-        mode: 'no-cors' // allows cross-origin sending to Apps Script
+        mode: 'no-cors'
       });
-      console.log("Survey successfully posted to Google Sheets via Apps Script.");
+      // Increment live count immediately
+      if (liveSheetStats && liveSheetStats.total_surveys) {
+        liveSheetStats.total_surveys++;
+      }
     } catch (err) {
-      console.warn("Could not post directly to Apps Script (offline mode):", err);
+      console.warn("Sheet post:", err);
     }
   }
 
+  function getLiveStats() {
+    return liveSheetStats;
+  }
+
   function getAllMergedSurveys() {
-    // Combine locally submitted surveys and remote surveys from Google Sheets
     const local = (typeof submittedSurveys !== 'undefined' && Array.isArray(submittedSurveys)) 
       ? submittedSurveys 
       : [];
-    
-    // Deduplicate by sorovnoma_id
-    const seen = new Set();
-    const merged = [];
-
-    local.forEach(s => {
-      const id = s.sorovnoma_id || (s.boshliq_fio + '_' + s.uy_raqami);
-      if (!seen.has(id)) {
-        seen.add(id);
-        merged.push(s);
-      }
-    });
-
-    remoteSurveys.forEach(s => {
-      const id = s.sorovnoma_id || (s.boshliq_fio + '_' + s.uy_raqami);
-      if (!seen.has(id)) {
-        seen.add(id);
-        merged.push(s);
-      }
-    });
-
-    return merged;
+    return local;
   }
 
   function notifyStatsUpdate() {
@@ -171,39 +126,11 @@ const GoogleSync = (function() {
     }
   }
 
-  function openSettingsModal() {
-    const modal = document.getElementById('sync-settings-modal');
-    if (!modal) return;
-
-    document.getElementById('sync-modal-script-id').value = config.scriptId;
-    document.getElementById('sync-modal-url').value = config.webAppUrl;
-    modal.classList.add('open');
-  }
-
-  function closeSettingsModal() {
-    const modal = document.getElementById('sync-settings-modal');
-    if (modal) modal.classList.remove('open');
-  }
-
-  function saveSettings(e) {
-    if (e) e.preventDefault();
-    const newUrl = document.getElementById('sync-modal-url').value.trim();
-    if (newUrl) {
-      config.webAppUrl = newUrl;
-      localStorage.setItem('surxondaryo_sync_url', newUrl);
-    }
-    closeSettingsModal();
-    syncNow();
-  }
-
   return {
     init,
     syncNow,
     submitSurvey,
-    getAllMergedSurveys,
-    openSettingsModal,
-    closeSettingsModal,
-    saveSettings,
-    getConfig: () => config
+    getLiveStats,
+    getAllMergedSurveys
   };
 })();

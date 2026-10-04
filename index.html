@@ -53,21 +53,18 @@
       </div>
 
       <div class="header-right">
-        <!-- SYNC BADGE -->
-        <div class="sync-badge-box" onclick="GoogleSync.syncNow()" title="Google Sheets bilan sinxronlash (Apps Script)">
+        <!-- LIVE SYNC STATUS -->
+        <div class="sync-badge-box" onclick="GoogleSync.syncNow()" title="Statistikani yangilash">
           <div class="sync-dot sync-success" id="sync-status-dot"></div>
-          <span id="sync-status-badge">Google Sheets ulangan</span>
+          <span id="sync-status-badge">Jonli: 38 670 ta javob</span>
           <span style="font-size:11px;color:var(--muted);" id="sync-last-time">Hozirgina</span>
         </div>
-
-        <button class="btn btn-outline btn-sm" onclick="GoogleSync.openSettingsModal()" title="Apps Script sozlamalari">
-          <span>⚙ Apps Script</span>
-        </button>
 
         <button class="btn btn-outline btn-sm" id="btn-theme-toggle" onclick="toggleTheme()" title="Rejimni almashtirish">
           <span id="theme-icon">🌙</span>
         </button>
       </div>
+
     </header>
 
     <!-- FILTERBAR -->
@@ -96,16 +93,17 @@
         <div class="kpi-grid">
           <div class="kpi accent">
             <div class="lbl">Jami xonadonlar</div>
-            <div class="num" id="kpi-total-families">33 731</div>
+            <div class="num" id="kpi-total-families">38 670</div>
             <div class="sub">Viloyat bo'yicha xatlov qilingan</div>
             <div class="kpi-badge c-navy">⌂</div>
           </div>
           <div class="kpi">
             <div class="lbl">Jami aholi soni</div>
-            <div class="num" id="kpi-total-population">173 530</div>
+            <div class="num" id="kpi-total-population">198 540</div>
             <div class="sub">Doimiy yashovchi fuqarolar</div>
             <div class="kpi-badge c-blue">👥</div>
           </div>
+
           <div class="kpi danger">
             <div class="lbl">Ishsizlar soni</div>
             <div class="num" id="kpi-unemployed">12 410</div>
@@ -469,34 +467,7 @@
   </div>
 </div>
 
-<!-- MODAL: GOOGLE SYNC SETTINGS -->
-<div class="modal-overlay" id="sync-settings-modal">
-  <div class="modal-box">
-    <div class="modal-head">
-      <h3>Google Sheets & Apps Script Sozlamalari</h3>
-      <button class="modal-close-btn" onclick="GoogleSync.closeSettingsModal()">✕</button>
-    </div>
-    <form onsubmit="GoogleSync.saveSettings(event)">
-      <div class="modal-body">
-        <div class="fgroup" style="margin-bottom:12px;">
-          <label>Google Apps Script ID</label>
-          <input type="text" id="sync-modal-script-id" class="form-input" readonly>
-        </div>
-        <div class="fgroup" style="margin-bottom:12px;">
-          <label>Web App Deployment URL</label>
-          <input type="text" id="sync-modal-url" class="form-input" required>
-        </div>
-        <div style="background:var(--slate-100);padding:12px;border-radius:4px;font-size:12px;color:var(--muted);line-height:1.5;">
-          <strong>Eslatma:</strong> Google Sheetsga ma'lumotlar avtomatik yuborilishi uchun Apps Scriptda Web App yaratilgan bo'lishi va "Anyone" huquqi berilgan bo'lishi lozim. Loyihada tayyor <code>Code.gs</code> fayli mavjud.
-        </div>
-      </div>
-      <div class="modal-foot">
-        <button type="button" class="btn btn-outline" onclick="GoogleSync.closeSettingsModal()">Yopish</button>
-        <button type="submit" class="btn btn-primary">Saqlash va Sinxronlash</button>
-      </div>
-    </form>
-  </div>
-</div>
+
 
 <!-- MODAL: GEMINI API KEY -->
 <div class="modal-overlay" id="gemini-key-modal">

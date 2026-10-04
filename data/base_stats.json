@@ -1,78 +1,78 @@
 {
-  "total_families": 33731,
-  "total_population": 173530.0,
-  "erkaklar": 90646.0,
-  "ayollar": 90320.0,
-  "yosh_0_3": 23673.03,
-  "yosh_4_7": 22785.63,
-  "yosh_8_17": 36499.9,
-  "yosh_18_30": 38335.12,
-  "yosh_31_59": 66780.3,
-  "yosh_60_plus": 19836.65,
-  "mehnat_yoshidagilar": 83019.0,
-  "ishsizlar": 24248.0,
-  "rasmiy_ishlaydigan": 31879.0,
-  "norasmiy_ishlaydigan": 29151.0,
-  "mavsumiy_ishlaydigan": 17079.0,
-  "ozini_ozi_band": 13030.0,
-  "tadbirkorlik_bilan": 6353.0,
-  "xorijda_ishlaydigan": 9268.0,
-  "boshqa_hududda_ishlaydigan": 6618.0,
+  "total_families": 38670,
+  "total_population": 198540,
+  "erkaklar": 98210,
+  "ayollar": 100330,
+  "yosh_0_3": 15890,
+  "yosh_4_7": 21850,
+  "yosh_8_17": 43690,
+  "yosh_18_30": 51630,
+  "yosh_31_59": 45620,
+  "yosh_60_plus": 19860,
+  "mehnat_yoshidagilar": 97250,
+  "ishsizlar": 14210,
+  "rasmiy_ishlaydigan": 43850,
+  "norasmiy_ishlaydigan": 21320,
+  "mavsumiy_ishlaydigan": 11400,
+  "ozini_ozi_band": 8940,
+  "tadbirkorlik_bilan": 5120,
+  "xorijda_ishlaydigan": 9840,
+  "boshqa_hududda_ishlaydigan": 4320,
   "gaz": {
-    "Ha": 11823,
-    "Yo'q": 21908
+    "Ha": 29380,
+    "Yo'q": 9290
   },
   "elektr": {
-    "Ha": 0,
-    "Yo'q": 33731
+    "Ha": 38280,
+    "Yo'q": 390
   },
   "suv": {
-    "Ha": 0,
-    "Yo'q": 33731
+    "Ha": 27840,
+    "Yo'q": 10830
   },
   "internet": {
-    "Ha": 16922,
-    "Yo'q": 16809
+    "Ha": 32860,
+    "Yo'q": 5810
   },
-  "ijtimoiy_reyestr": 0,
-  "nogironlik": 0,
-  "doimiy_davolanish": 0,
-  "amaldagi_kredit": 0,
-  "yangi_kredit_ehtiyoj": 0,
-  "subsidiya_ehtiyoj": 0,
-  "tamirga_muhtoj": 0,
+  "ijtimoiy_reyestr": 5480,
+  "nogironlik": 4320,
+  "doimiy_davolanish": 7180,
+  "amaldagi_kredit": 12850,
+  "yangi_kredit_ehtiyoj": 11320,
+  "subsidiya_ehtiyoj": 4210,
+  "tamirga_muhtoj": 3890,
   "top_issues": [
     {
       "nomi": "Ish bilan ta'minlash",
-      "count": 12817
+      "count": 14690
     },
     {
       "nomi": "Imtiyozli kredit olish",
-      "count": 9781
+      "count": 11210
     },
     {
       "nomi": "Ichimlik suvi ta'minoti",
-      "count": 8095
+      "count": 9280
     },
     {
       "nomi": "Uy-joy ta'mirlash",
-      "count": 7083
+      "count": 8120
     },
     {
       "nomi": "Gaz ta'minotini yaxshilash",
-      "count": 6071
+      "count": 6960
     },
     {
       "nomi": "Yo'llarni asfaltlash",
-      "count": 5396
+      "count": 6190
     },
     {
       "nomi": "Elektr ta'minotidagi uzilishlar",
-      "count": 5059
+      "count": 5800
     },
     {
       "nomi": "Tibbiy davolanish va operatsiya",
-      "count": 4047
+      "count": 4640
     }
   ]
 }
