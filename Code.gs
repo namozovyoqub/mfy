@@ -88,9 +88,13 @@ function doPost(e) {
     
     for (let c = 0; c < headers.length; c++) {
       const key = headers[c];
-      const val = payload[key] !== undefined ? payload[key] : '';
+      let val = payload[key] !== undefined ? payload[key] : '';
+      if (typeof val === 'string' && val.startsWith('+')) {
+        val = "'" + val; // Prevent Sheets formula parse error
+      }
       newRow.push(typeof val === 'object' ? JSON.stringify(val) : val);
     }
+
     
     sheet.appendRow(newRow);
     

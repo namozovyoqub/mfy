@@ -5,12 +5,13 @@
 
 const GoogleSync = (function() {
   const DEFAULT_SCRIPT_ID = "1IyoVMJ98zSeHEYeCVmLEN7slOoroZ7tKpuZccVKUvKQ";
-  const DEFAULT_URL = `https://script.google.com/macros/s/${DEFAULT_SCRIPT_ID}/exec`;
+  const DEFAULT_URL = "https://script.google.com/macros/s/AKfycbyH-7CgzjhB8wG1B_HvaEIvbZM_ch61Y3ym40plXVlw_kTXKSLWXyix132J22-BsMXf/exec";
 
   let config = {
     scriptId: DEFAULT_SCRIPT_ID,
     webAppUrl: localStorage.getItem('surxondaryo_sync_url') || DEFAULT_URL,
     autoSyncInterval: 45000, // 45 seconds
+
     lastSyncTime: null,
     isSyncing: false,
     syncStatus: 'idle' // 'idle', 'syncing', 'success', 'offline'
