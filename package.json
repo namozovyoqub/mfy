@@ -1,0 +1,19 @@
+{
+  "name": "surxondaryo-mfy-pasport-tizimi",
+  "version": "1.0.0",
+  "description": "Surxondaryo viloyati MFY pasport tizimi va aholining ijtimoiy-iqtisodiy xatlov platformasi",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve ."
+  },
+  "keywords": [
+    "mfy",
+    "surxondaryo",
+    "xatlov",
+    "sorovnoma",
+    "google-sheets",
+    "apps-script"
+  ],
+  "author": "",
+  "license": "ISC"
+}

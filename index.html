@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Surxondaryo Viloyati MFY Pasport Tizimi va Xatlov Platformasi</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+<div class="app-layout">
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sidebar-brand">
+      <div class="sidebar-logo">SV</div>
+      <div class="sidebar-brand-text">
+        <div class="sidebar-title">SURXONDARYO VILOYATI</div>
+        <div class="sidebar-subtitle">MFY PASPORT VA XATLOV TIZIMI</div>
+      </div>
+    </div>
+
+    <div class="sidebar-scroll">
+      <div class="side-label">ASOSIY TAHLIL</div>
+      <nav class="tabs">
+        <button data-tab="overview" class="active"><span class="nav-ico">▦</span><span>Umumiy ko‘rinish</span></button>
+        <button data-tab="tumaninfo"><span class="nav-ico">⌂</span><span>Tumanlar tahlili</span></button>
+        <button data-tab="diagnostics"><span class="nav-ico">⌁</span><span>Tahlil va ustuvorliklar</span></button>
+        <button data-tab="ai"><span class="nav-ico">✦</span><span>AI tahlili (Gemini)</span></button>
+        <button data-tab="demog"><span class="nav-ico">♙</span><span>Ijtimoiy-demografik</span></button>
+        <button data-tab="geo"><span class="nav-ico">⌖</span><span>Hudud kesimi</span></button>
+      </nav>
+
+      <div class="side-label side-label-gap">MA’LUMOTLAR VA AMALLAR</div>
+      <nav class="tabs">
+        <button data-tab="officials"><span class="nav-ico">👥</span><span>Mahallalar mas'ullari</span><span class="nav-count" id="officials-nav-count">723</span></button>
+        <button data-tab="survey"><span class="nav-ico">📋</span><span>So'rovnoma (100 ta savol)</span></button>
+        <button data-tab="issues"><span class="nav-ico">⚠</span><span>Muammo va ehtiyojlar</span></button>
+        <button data-tab="tasks"><span class="nav-ico">✓</span><span>Maqsadli topshiriqlar</span><span class="nav-count">11</span></button>
+      </nav>
+    </div>
+  </aside>
+
+  <!-- MAIN WRAPPER -->
+  <div class="main-wrapper">
+    <!-- TOP HEADER -->
+    <header class="top-header">
+      <div class="header-left">
+        <div class="page-main-heading">
+          <h2 id="top-title">Umumiy ko‘rinish</h2>
+          <p id="top-subtitle">Surxondaryo viloyati bo‘yicha ijtimoiy-iqtisodiy xatlov ma’lumotlari</p>
+        </div>
+      </div>
+
+      <div class="header-right">
+        <!-- SYNC BADGE -->
+        <div class="sync-badge-box" onclick="GoogleSync.syncNow()" title="Google Sheets bilan sinxronlash (Apps Script)">
+          <div class="sync-dot sync-success" id="sync-status-dot"></div>
+          <span id="sync-status-badge">Google Sheets ulangan</span>
+          <span style="font-size:11px;color:var(--muted);" id="sync-last-time">Hozirgina</span>
+        </div>
+
+        <button class="btn btn-outline btn-sm" onclick="GoogleSync.openSettingsModal()" title="Apps Script sozlamalari">
+          <span>⚙ Apps Script</span>
+        </button>
+
+        <button class="btn btn-outline btn-sm" id="btn-theme-toggle" onclick="toggleTheme()" title="Rejimni almashtirish">
+          <span id="theme-icon">🌙</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- FILTERBAR -->
+    <div class="filterbar">
+      <div class="fgroup">
+        <label>Tuman (shahar)</label>
+        <select id="f-tuman">
+          <option value="">Barcha tumanlar</option>
+        </select>
+      </div>
+      <div class="fgroup">
+        <label>MFY (Mahalla)</label>
+        <select id="f-mahalla">
+          <option value="">Barchasi</option>
+        </select>
+      </div>
+      <button class="btn-reset" id="btn-reset-filters" onclick="resetGlobalFilters()">Filtrni tozalash</button>
+      <div class="breadcrumb-box" id="breadcrumb-text">Barcha hududlar (Surxondaryo)</div>
+    </div>
+
+    <!-- MAIN BODY -->
+    <main class="content-area">
+      
+      <!-- VIEW: OVERVIEW -->
+      <section class="view active" id="view-overview">
+        <div class="kpi-grid">
+          <div class="kpi accent">
+            <div class="lbl">Jami xonadonlar</div>
+            <div class="num" id="kpi-total-families">33 731</div>
+            <div class="sub">Viloyat bo'yicha xatlov qilingan</div>
+            <div class="kpi-badge c-navy">⌂</div>
+          </div>
+          <div class="kpi">
+            <div class="lbl">Jami aholi soni</div>
+            <div class="num" id="kpi-total-population">173 530</div>
+            <div class="sub">Doimiy yashovchi fuqarolar</div>
+            <div class="kpi-badge c-blue">👥</div>
+          </div>
+          <div class="kpi danger">
+            <div class="lbl">Ishsizlar soni</div>
+            <div class="num" id="kpi-unemployed">12 410</div>
+            <div class="sub">Bandlikka muhtoj fuqarolar</div>
+            <div class="kpi-badge c-pink">⚠</div>
+          </div>
+          <div class="kpi warn">
+            <div class="lbl">Ijtimoiy reyestr</div>
+            <div class="num" id="kpi-social-registry">4 820</div>
+            <div class="sub">Ehtiyojmand oilalar</div>
+            <div class="kpi-badge c-orange">☤</div>
+          </div>
+          <div class="kpi">
+            <div class="lbl">Kreditga ehtiyoj</div>
+            <div class="num" id="kpi-credit-needs">9 150</div>
+            <div class="sub">Tadbirkorlik istagidagi oilalar</div>
+            <div class="kpi-badge c-purple">💳</div>
+          </div>
+          <div class="kpi ok">
+            <div class="lbl">Gaz ta'minoti</div>
+            <div class="num" id="kpi-gas-pct">74%</div>
+            <div class="sub">Qamrov darajasi</div>
+            <div class="kpi-badge c-green">🔥</div>
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <div class="card">
+            <h3>Mehnat va bandlik tarkibi</h3>
+            <div class="card-sub">Aholining bandlik toifalari bo'yicha taqsimoti</div>
+            <div style="height:250px;"><canvas id="chart-employment"></canvas></div>
+          </div>
+          <div class="card">
+            <h3>Daromad - xarajat balansi</h3>
+            <div class="card-sub">Oila daromadi xarajatlarni qoplash holati</div>
+            <div style="height:250px;"><canvas id="chart-balance"></canvas></div>
+          </div>
+        </div>
+
+        <div class="grid-3">
+          <div class="card">
+            <h3>Oila oylik daromadlari</h3>
+            <div class="card-sub">Xonadonlarning oylik daromad toifalari</div>
+            <div style="height:220px;"><canvas id="chart-income"></canvas></div>
+          </div>
+          <div class="card">
+            <h3>Kommunal xizmatlar bilan ta'minlanganlik</h3>
+            <div class="card-sub">Infratuzilma qamrovi foizda (%)</div>
+            <div style="height:220px;"><canvas id="chart-utilities"></canvas></div>
+          </div>
+          <div class="card">
+            <h3>Aholining yosh toifalari</h3>
+            <div class="card-sub">Demografik yosh guruhlari taqsimoti</div>
+            <div style="height:220px;"><canvas id="chart-age"></canvas></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- VIEW: TUMANINFO -->
+      <section class="view" id="view-tumaninfo">
+        <div class="card">
+          <h3>Surxondaryo Viloyati Tuman va Shaharlari Bo‘yicha Qiyosiy Tahlil</h3>
+          <div class="card-sub">15 ta tuman va shaharlar bo'yicha mahallalar va aholi soni</div>
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>№</th>
+                <th>Tuman (shahar) nomi</th>
+                <th>Mahallalar soni</th>
+                <th>Taxminiy oilalar</th>
+                <th>Aholi soni</th>
+                <th>Tayinlangan raislar</th>
+                <th>Vakant o'rinlar</th>
+              </tr>
+            </thead>
+            <tbody id="tumaninfo-table-body"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- VIEW: DIAGNOSTICS -->
+      <section class="view" id="view-diagnostics">
+        <div class="grid-2">
+          <div class="card">
+            <h3>Ijtimoiy-iqtisodiy toifalar (Qizil / Sariq / Yashil)</h3>
+            <div class="card-sub">Xonadonlarning holati bo'yicha saralanishi</div>
+            <div style="padding:16px 0;">
+              <div class="issue-item">
+                <div class="issue-info">
+                  <span class="badge badge-vacant">Qizil toifa (Og'ir)</span>
+                  <span class="issue-title">Doimiy daromadsiz, ta'mirga muhtoj, boquvchisiz oilalar</span>
+                  <span class="issue-count">3 420 ta (10%)</span>
+                </div>
+                <div class="issue-bar-track"><div class="issue-bar-fill" style="width:20%;background:var(--danger)"></div></div>
+              </div>
+              <div class="issue-item" style="margin-top:16px;">
+                <div class="issue-info">
+                  <span class="badge badge-warn">Sariq toifa (O'rtacha)</span>
+                  <span class="issue-title">Daromadi past, kredit yoki subsidiya talab qiladigan oilalar</span>
+                  <span class="issue-count">14 250 ta (42%)</span>
+                </div>
+                <div class="issue-bar-track"><div class="issue-bar-fill" style="width:50%;background:var(--warn)"></div></div>
+              </div>
+              <div class="issue-item" style="margin-top:16px;">
+                <div class="issue-info">
+                  <span class="badge badge-active">Yashil toifa (Barqaror)</span>
+                  <span class="issue-title">Barqaror daromadga ega, ehtiyojmand bo'lmagan xonadonlar</span>
+                  <span class="issue-count">16 061 ta (48%)</span>
+                </div>
+                <div class="issue-bar-track"><div class="issue-bar-fill" style="width:65%;background:var(--ok)"></div></div>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <h3>Ustuvor chora-tadbirlar va yo‘nalishlar</h3>
+            <div class="card-sub">Xatlov natijasida aniqlangan asosiy ehtiyojlar</div>
+            <ul style="padding-left:18px;line-height:1.9;color:var(--text);">
+              <li><strong>1. Bandlik ta'minoti:</strong> Ishsiz xotin-qizlarga tikuv mashinalari va subsidiya berish.</li>
+              <li><strong>2. Ichimlik suvi tarmoqlari:</strong> Quduq qazish va nasoslar o'rnatish.</li>
+              <li><strong>3. Imtiyozli kreditlar:</strong> Tomorqada ixcham issiqxona va chorva boqish uchun.</li>
+              <li><strong>4. Uy-joy ta'miri:</strong> Tom qismi yaroqsiz bo'lgan xonadonlarga qurilish materiallari.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- VIEW: AI (GEMINI FLASH) -->
+      <section class="view" id="view-ai">
+        <div id="ai-container-content"></div>
+      </section>
+
+      <!-- VIEW: DEMOG -->
+      <section class="view" id="view-demog">
+        <div class="grid-2">
+          <div class="card">
+            <h3>Ta'lim va bolalar qamrovi</h3>
+            <div class="card-sub">Bog'cha, maktab va oliy ta'lim ko'rsatkichlari</div>
+            <ul style="padding-left:18px;line-height:2.0;">
+              <li>Maktabgacha yoshdagi bolalar: <strong>21 400 nafar</strong></li>
+              <li>Bog'chaga qamrab olinganlar: <strong>78.4%</strong></li>
+              <li>Maktab yoshidagi bolalar: <strong>38 120 nafar</strong></li>
+              <li>Qo'shimcha to'garaklarga qatnashuvchilar: <strong>41.2%</strong></li>
+              <li>Oliy va kasb-hunar ta'limi olayotganlar: <strong>7 850 nafar</strong></li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>Sog'liqni saqlash va ijtimoiy himoya</h3>
+            <div class="card-sub">Tibbiy ko'rik va doimiy davolanish ehtiyojlari</div>
+            <ul style="padding-left:18px;line-height:2.0;">
+              <li>Doimiy davolanishga muhtoj shaxslar: <strong>6 420 nafar</strong></li>
+              <li>Dori-darmonga doimiy ehtiyojmandlar: <strong>5 110 nafar</strong></li>
+              <li>Nogironligi bo'lgan shaxslar: <strong>3 890 nafar</strong></li>
+              <li>Tibbiy ko'rik talab etiladigan fuqarolar: <strong>14 200 nafar</strong></li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- VIEW: GEO -->
+      <section class="view" id="view-geo">
+        <div class="card">
+          <h3>Hududlar kesimi va qamrov xaritasi</h3>
+          <div class="card-sub">Surxondaryo viloyati bo'yicha tumanlar va mahallalar joylashuvi</div>
+          <p style="margin-bottom:14px;color:var(--muted);">
+            Yuqori filterbar orqali ixtiyoriy tumanni tanlab, o‘sha tuman bo‘yicha batafsil ko‘rsatkichlarni ko‘rishingiz mumkin.
+          </p>
+          <div class="kpi-grid">
+            <div class="kpi"><div class="lbl">Tumanlar soni</div><div class="num">15 ta</div></div>
+            <div class="kpi"><div class="lbl">Mahallalar (MFY)</div><div class="num">723 ta</div></div>
+            <div class="kpi"><div class="lbl">Markaz</div><div class="num">Termiz shahri</div></div>
+            <div class="kpi ok"><div class="lbl">Xatlov holati</div><div class="num">Faol</div></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- VIEW: OFFICIALS (MAHALLALAR MAS'ULLARI) -->
+      <section class="view" id="view-officials">
+        <div class="kpi-grid">
+          <div class="kpi accent">
+            <div class="lbl">Jami mahallalar</div>
+            <div class="num" id="officials-kpi-total">723</div>
+            <div class="sub">Viloyat bo'yicha barcha MFYlar</div>
+          </div>
+          <div class="kpi ok">
+            <div class="lbl">Tayinlangan raislar</div>
+            <div class="num" id="officials-kpi-active">708</div>
+            <div class="sub">Faoliyat yuritayotgan mas'ullar</div>
+          </div>
+          <div class="kpi danger">
+            <div class="lbl">Vakant o'rinlar</div>
+            <div class="num" id="officials-kpi-vacant">15</div>
+            <div class="sub">Rais tayinlanishi kutilmoqda</div>
+          </div>
+          <div class="kpi">
+            <div class="lbl">Aloqa raqami borlar</div>
+            <div class="num" id="officials-kpi-phone">98%</div>
+            <div class="sub">Tezkor aloqa qamrovi</div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:16px;">
+            <div>
+              <h3>Mahallalar mas'ullari va MFY raislari ma'lumotlari</h3>
+              <div class="card-sub">Surxondaryo viloyatining barcha tuman va shaharlari bo'yicha mas'ul shaxslar ro'yxati</div>
+            </div>
+            <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;">
+              <span class="badge badge-active" id="officials-count-badge">723 ta mahalla</span>
+              <button class="btn btn-outline btn-sm" id="officials-export-btn">📥 Excel / CSV Eksport</button>
+              <button class="btn btn-primary btn-sm" id="officials-add-btn">+ Yangi Mas'ul Qo'shish</button>
+            </div>
+          </div>
+
+          <!-- FILTERS ROW FOR OFFICIALS -->
+          <div style="display:flex;gap:12px;margin-bottom:16px;flex-wrap:wrap;background:var(--slate-100);padding:12px;border-radius:4px;">
+            <div class="fgroup">
+              <label>Tuman bo‘yicha saralash</label>
+              <select id="officials-filter-tuman"></select>
+            </div>
+            <div class="fgroup">
+              <label>Holati</label>
+              <select id="officials-filter-status">
+                <option value="">Barchasi</option>
+                <option value="Faol">Faqat Faol raislar</option>
+                <option value="Vakant">Faqat Vakant o'rinlar</option>
+              </select>
+            </div>
+            <div class="fgroup" style="flex:1;min-width:220px;">
+              <label>Mahalla nomi, F.I.Sh yoki Telefon qidirish</label>
+              <input type="text" id="officials-search" placeholder="Masalan: Angor, Bektosh, 97-244...">
+            </div>
+          </div>
+
+          <div style="overflow-x:auto;">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th style="width:40px;">№</th>
+                  <th>Tuman (shahar)</th>
+                  <th>Mahalla (MFY)</th>
+                  <th>Lavozimi</th>
+                  <th>Mas'ul F.I.Sh</th>
+                  <th>Telefon raqami</th>
+                  <th>Holat</th>
+                </tr>
+              </thead>
+              <tbody id="officials-table-body"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- VIEW: SURVEY (100 TA SAVOL SO'ROVNOMA YUBORISH) -->
+      <section class="view" id="view-survey">
+        <div class="card" style="margin-bottom:20px;">
+          <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;">
+            <div>
+              <h3>Aholining Ijtimoiy-Iqtisodiy Holatini Aniqlash Bo‘yicha Xonadonbay Xatlov So‘rovnomasi</h3>
+              <div class="card-sub">100 ta savoldan iborat yagona xatlov formasi (Google Sheets & Tizim bazasiga avtomatik integratsiya)</div>
+            </div>
+            <div style="display:flex;gap:10px;">
+              <button type="button" class="btn btn-outline btn-sm" onclick="clearSurveyDraft()">Formani tozalash</button>
+            </div>
+          </div>
+
+          <!-- PROGRESS BAR -->
+          <div class="survey-progress-header">
+            <div style="display:flex;justify-content:space-between;font-size:12px;font-weight:600;margin-bottom:4px;">
+              <span id="survey-progress-count">0 / 100 savol to‘ldirildi</span>
+              <span id="survey-progress-text">0%</span>
+            </div>
+            <div class="survey-progress-bar-track">
+              <div class="survey-progress-bar-fill" id="survey-progress-bar"></div>
+            </div>
+            <div style="font-size:11.5px;color:var(--muted);">
+              ✦ Har bir kiritilgan ma'lumot avtomatik ravishda saqlanib boradi (qoralama yo'qolmaydi).
+            </div>
+          </div>
+
+          <div class="survey-wizard-container">
+            <!-- SECTIONS SIDEBAR -->
+            <div class="survey-nav-sidebar" id="survey-sections-nav"></div>
+
+            <!-- FORM MAIN CONTENT -->
+            <div class="survey-form-main">
+              <form id="survey-main-form" onsubmit="submitSurveyForm(event)">
+                <div id="survey-form-content"></div>
+
+                <!-- ACTIONS BOTTOM -->
+                <div class="survey-actions-bottom">
+                  <button type="button" class="btn btn-outline" id="survey-prev-btn" onclick="prevSurveySection()">← Oldingi bo‘lim</button>
+                  <div style="display:flex;gap:10px;">
+                    <button type="button" class="btn btn-outline" id="survey-next-btn" onclick="nextSurveySection()">Keyingi bo‘lim →</button>
+                    <button type="submit" class="btn btn-primary" id="survey-submit-btn">✓ So‘rovnomani Yuborish</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <!-- RECENTLY SUBMITTED SURVEYS REGISTRY -->
+        <div class="card">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
+            <div>
+              <h3>Tizimga Kiritilgan So‘rovnomalar Reyestri</h3>
+              <div class="card-sub">Lokal baza va Google Sheets orqali saqlangan barcha yangi xatlovlar</div>
+            </div>
+            <span class="badge badge-active" id="submitted-count-badge">0 ta</span>
+          </div>
+
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>№</th>
+                <th>So'rovnoma ID</th>
+                <th>Sana</th>
+                <th>Oila boshlig'i F.I.Sh</th>
+                <th>Manzil (Tuman, MFY)</th>
+                <th>Ijtimoiy holati</th>
+                <th>Amal</th>
+              </tr>
+            </thead>
+            <tbody id="submitted-surveys-tbody"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- VIEW: ISSUES -->
+      <section class="view" id="view-issues">
+        <div class="grid-2">
+          <div class="card">
+            <h3>Aholini Qiynayotgan Eng Asosiy Muammolar Reytingi</h3>
+            <div class="card-sub">Xatlovda oilalar tomonidan ko'rsatilgan 1–3-o'rin muammolari</div>
+            <div id="issues-ranking-list" style="padding-top:8px;"></div>
+          </div>
+          <div class="card">
+            <h3>Eng Ko'p Talab Qilinayotgan Ehtiyojlar</h3>
+            <div class="card-sub">Oilalarning daromad va sharoitlarini yaxshilash omillari</div>
+            <ul style="padding-left:18px;line-height:2.0;">
+              <li><strong>Imtiyozli kreditlar (33 mln so'mgacha):</strong> 9 150 ta oila</li>
+              <li><strong>Asbob-uskuna va motokultivator subsidiyasi:</strong> 3 840 ta oila</li>
+              <li><strong>Doimiy ish o'rni bilan ta'minlash:</strong> 7 210 ta fuqaro</li>
+              <li><strong>Uy-joy tom qismini ta'mirlash:</strong> 2 180 ta xonadon</li>
+              <li><strong>Tibbiy ko'rik va bepul davolanish:</strong> 3 450 nafar fuqaro</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- VIEW: TASKS -->
+      <section class="view" id="view-tasks">
+        <div class="card" style="margin-bottom:18px;">
+          <h3>Surxondaryo Viloyatini Rivojlantirish Bo‘yicha 11 Ta Maqsadli Topshiriq</h3>
+          <div class="card-sub">Mas'ul idoralar va hokim yordamchilari ijro monitoringi</div>
+        </div>
+        <div class="tasks-grid" id="tasks-cards-container"></div>
+      </section>
+
+    </main>
+  </div>
+</div>
+
+<!-- MODAL: GOOGLE SYNC SETTINGS -->
+<div class="modal-overlay" id="sync-settings-modal">
+  <div class="modal-box">
+    <div class="modal-head">
+      <h3>Google Sheets & Apps Script Sozlamalari</h3>
+      <button class="modal-close-btn" onclick="GoogleSync.closeSettingsModal()">✕</button>
+    </div>
+    <form onsubmit="GoogleSync.saveSettings(event)">
+      <div class="modal-body">
+        <div class="fgroup" style="margin-bottom:12px;">
+          <label>Google Apps Script ID</label>
+          <input type="text" id="sync-modal-script-id" class="form-input" readonly>
+        </div>
+        <div class="fgroup" style="margin-bottom:12px;">
+          <label>Web App Deployment URL</label>
+          <input type="text" id="sync-modal-url" class="form-input" required>
+        </div>
+        <div style="background:var(--slate-100);padding:12px;border-radius:4px;font-size:12px;color:var(--muted);line-height:1.5;">
+          <strong>Eslatma:</strong> Google Sheetsga ma'lumotlar avtomatik yuborilishi uchun Apps Scriptda Web App yaratilgan bo'lishi va "Anyone" huquqi berilgan bo'lishi lozim. Loyihada tayyor <code>Code.gs</code> fayli mavjud.
+        </div>
+      </div>
+      <div class="modal-foot">
+        <button type="button" class="btn btn-outline" onclick="GoogleSync.closeSettingsModal()">Yopish</button>
+        <button type="submit" class="btn btn-primary">Saqlash va Sinxronlash</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- MODAL: GEMINI API KEY -->
+<div class="modal-overlay" id="gemini-key-modal">
+  <div class="modal-box">
+    <div class="modal-head">
+      <h3>Gemini Flash API Kalitini Kiritish</h3>
+      <button class="modal-close-btn" onclick="closeApiKeyModal()">✕</button>
+    </div>
+    <form onsubmit="saveApiKey(event)">
+      <div class="modal-body">
+        <div class="fgroup" style="margin-bottom:12px;">
+          <label>Google Gemini API Key</label>
+          <input type="password" id="gemini-api-key-input" class="form-input" placeholder="AIzaSy..." required>
+        </div>
+        <p style="font-size:12px;color:var(--muted);line-height:1.5;">
+          API kalitingiz faqat brauzeringiz xotirasida (localStorage) saqlanadi va serverga yuborilmaydi. Kalit kiritilgach, Gemini Flash orqali real vaqtli tahlil qilish imkoniyati faollashadi.
+        </p>
+      </div>
+      <div class="modal-foot">
+        <button type="button" class="btn btn-outline" onclick="closeApiKeyModal()">Bekor qilish</button>
+        <button type="submit" class="btn btn-primary">Kalitni Saqlash</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- MODAL: OFFICIAL EDIT / ADD -->
+<div class="modal-overlay" id="official-edit-modal">
+  <div class="modal-box">
+    <div class="modal-head">
+      <h3 id="official-modal-title">Mahalla Mas'uli Ma'lumotlari</h3>
+      <button class="modal-close-btn" onclick="closeOfficialModal()">✕</button>
+    </div>
+    <form id="official-form" onsubmit="saveOfficialForm(event)">
+      <div class="modal-body">
+        <div class="fgroup" style="margin-bottom:10px;">
+          <label>Tuman (shahar) nomi</label>
+          <input type="text" id="m-official-tuman" class="form-input" required>
+        </div>
+        <div class="fgroup" style="margin-bottom:10px;">
+          <label>Mahalla nomi</label>
+          <input type="text" id="m-official-mahalla" class="form-input" required>
+        </div>
+        <div class="fgroup" style="margin-bottom:10px;">
+          <label>Lavozimi</label>
+          <input type="text" id="m-official-lavozim" class="form-input" value="MFY raisi" required>
+        </div>
+        <div class="fgroup" style="margin-bottom:10px;">
+          <label>Mas'ul F.I.Sh</label>
+          <input type="text" id="m-official-fio" class="form-input" placeholder="Familiya Ism Sharifi">
+        </div>
+        <div class="fgroup" style="margin-bottom:10px;">
+          <label>Telefon raqami</label>
+          <input type="tel" id="m-official-tel" class="form-input" placeholder="+998 90 123 45 67">
+        </div>
+        <div class="fgroup" style="margin-bottom:10px;">
+          <label>Holati</label>
+          <select id="m-official-status" class="form-select">
+            <option value="Faol">Faol</option>
+            <option value="Vakant">Vakant</option>
+          </select>
+        </div>
+      </div>
+      <div class="modal-foot">
+        <button type="button" class="btn btn-outline" onclick="closeOfficialModal()">Bekor qilish</button>
+        <button type="submit" class="btn btn-primary">Saqlash</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- MODAL: SURVEY SUCCESS -->
+<div class="modal-overlay" id="survey-success-modal">
+  <div class="modal-box" style="text-align:center;">
+    <div class="modal-body" style="padding:32px 20px;">
+      <div style="font-size:46px;margin-bottom:12px;">✅</div>
+      <h3 style="font-size:18px;margin-bottom:8px;">So‘rovnoma Muvaffaqiyatli Yuborildi!</h3>
+      <p style="color:var(--muted);font-size:13px;margin-bottom:16px;">
+        Xonadon ma'lumotlari tizim bazasiga va Google Sheetsga avtomatik qo‘shildi.
+      </p>
+      <div style="background:var(--slate-100);padding:12px;border-radius:4px;text-align:left;font-size:12.5px;margin-bottom:20px;">
+        <div><strong>Hujjat raqami:</strong> <span id="modal-survey-id"></span></div>
+        <div><strong>Oila boshlig‘i:</strong> <span id="modal-survey-fio"></span></div>
+        <div><strong>Manzil:</strong> <span id="modal-survey-addr"></span></div>
+      </div>
+      <button class="btn btn-primary" onclick="closeSurveySuccessModal()">Tushunarli</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL: SURVEY DETAIL PASSPORT -->
+<div class="modal-overlay" id="survey-detail-modal">
+  <div class="modal-box" style="max-width:750px;">
+    <div class="modal-head">
+      <h3 id="detail-modal-title">So'rovnoma Pasporti</h3>
+      <button class="modal-close-btn" onclick="closeSurveyDetailModal()">✕</button>
+    </div>
+    <div class="modal-body" id="detail-modal-body"></div>
+    <div class="modal-foot">
+      <button class="btn btn-outline" onclick="window.print()">🖨 Chop etish</button>
+      <button class="btn btn-primary" onclick="closeSurveyDetailModal()">Yopish</button>
+    </div>
+  </div>
+</div>
+
+<!-- JAVASCRIPT MODULES -->
+<script src="js/data.js"></script>
+<script src="js/officials.js"></script>
+<script src="js/survey.js"></script>
+<script src="js/sync.js"></script>
+<script src="js/stats.js"></script>
+<script src="js/ai.js"></script>
+
+<script>
+// Escape HTML helper
+function escapeHtml(str) {
+  if (str === null || str === undefined) return '';
+  return String(str).replace(/[&<>"']/g, m => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[m]);
+}
+
+// Global Filterbar and Navigation logic
+let currentTab = 'overview';
+
+document.addEventListener('DOMContentLoaded', () => {
+  setupNavigation();
+  setupGlobalFilters();
+  initOfficialsModule();
+  initSurveyModule();
+  GoogleSync.init();
+  initStatsModule();
+  initAiModule();
+});
+
+function setupNavigation() {
+  const tabButtons = document.querySelectorAll('.sidebar nav.tabs button');
+  tabButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const tab = btn.dataset.tab;
+      if (!tab) return;
+      switchTab(tab);
+    });
+  });
+}
+
+function switchTab(tabId) {
+  currentTab = tabId;
+
+  // Update nav buttons
+  document.querySelectorAll('.sidebar nav.tabs button').forEach(b => {
+    b.classList.toggle('active', b.dataset.tab === tabId);
+  });
+
+  // Update views
+  document.querySelectorAll('main.content-area .view').forEach(v => {
+    v.classList.remove('active');
+  });
+
+  const activeView = document.getElementById(`view-${tabId}`);
+  if (activeView) activeView.classList.add('active');
+
+  // Update Header title
+  const titles = {
+    overview: ["Umumiy ko‘rinish", "Surxondaryo viloyati bo‘yicha ijtimoiy-iqtisodiy xatlov ma’lumotlari"],
+    tumaninfo: ["Tumanlar tahlili", "Viloyatning 15 ta tuman va shaharlaridagi mahallalar va ko'rsatkichlar"],
+    diagnostics: ["Tahlil va ustuvorliklar", "Ijtimoiy toifalar (Qizil / Sariq / Yashil) va ustuvor vazifalar"],
+    ai: ["Gemini Flash AI Tahlili", "Google Gemini Flash orqali ijtimoiy-iqtisodiy xatlovlarni tahlil qilish"],
+    demog: ["Ijtimoiy-demografik ko‘rsatkichlar", "Yosh toifalari, ta'lim va sog'liqni saqlash holati"],
+    geo: ["Hudud kesimi", "Surxondaryo viloyati tumanlari qamrovi"],
+    officials: ["Mahallalar mas'ullari", "Surxondaryo viloyatidagi 723 ta mahalla raislari va aloqa ma'lumotlari"],
+    survey: ["So'rovnoma yuborish (100 ta savol)", "Aholining ijtimoiy-iqtisodiy holatini aniqlash bo‘yicha xonadonbay xatlov"],
+    issues: ["Muammo va ehtiyojlar", "Aholini eng ko'p qiynayotgan masalalar va talablar reytingi"],
+    tasks: ["Maqsadli topshiriqlar", "Hokim yordamchilari va mas'ul idoralar uchun 11 ta maqsadli vazifa"]
+  };
+
+  const [t, sub] = titles[tabId] || ["MFY Pasport Tizimi", ""];
+  document.getElementById('top-title').textContent = t;
+  document.getElementById('top-subtitle').textContent = sub;
+
+  // Trigger resize on charts when returning to overview
+  if (tabId === 'overview') {
+    refreshGlobalStatistics();
+  }
+}
+
+function setupGlobalFilters() {
+  const tumanSelect = document.getElementById('f-tuman');
+  const mahallaSelect = document.getElementById('f-mahalla');
+
+  if (tumanSelect) {
+    tumanSelect.innerHTML = '<option value="">Barcha tumanlar</option>';
+    TUMANS_LIST.forEach(t => {
+      const opt = document.createElement('option');
+      opt.value = t;
+      opt.textContent = t;
+      tumanSelect.appendChild(opt);
+    });
+
+    tumanSelect.addEventListener('change', () => {
+      updateMahallaFilterOptions();
+      onGlobalFilterChange();
+    });
+  }
+
+  if (mahallaSelect) {
+    mahallaSelect.addEventListener('change', onGlobalFilterChange);
+  }
+}
+
+function updateMahallaFilterOptions() {
+  const tuman = document.getElementById('f-tuman')?.value || '';
+  const mahallaSelect = document.getElementById('f-mahalla');
+  if (!mahallaSelect) return;
+
+  mahallaSelect.innerHTML = '<option value="">Barcha mahallalar</option>';
+  if (!tuman) return;
+
+  const relevant = OFFICIALS_DATA.filter(o => o.tuman === tuman);
+  relevant.forEach(o => {
+    const opt = document.createElement('option');
+    opt.value = o.mahalla;
+    opt.textContent = o.mahalla;
+    mahallaSelect.appendChild(opt);
+  });
+}
+
+function onGlobalFilterChange() {
+  const tuman = document.getElementById('f-tuman')?.value || '';
+  const mahalla = document.getElementById('f-mahalla')?.value || '';
+  const breadcrumb = document.getElementById('breadcrumb-text');
+
+  if (breadcrumb) {
+    if (tuman && mahalla) breadcrumb.textContent = `${tuman} › ${mahalla}`;
+    else if (tuman) breadcrumb.textContent = `${tuman} (Barcha mahallalar)`;
+    else breadcrumb.textContent = "Barcha hududlar (Surxondaryo)";
+  }
+
+  refreshGlobalStatistics();
+}
+
+function resetGlobalFilters() {
+  document.getElementById('f-tuman').value = '';
+  document.getElementById('f-mahalla').value = '';
+  updateMahallaFilterOptions();
+  onGlobalFilterChange();
+}
+
+// Dark / Light Theme toggle
+function toggleTheme() {
+  const body = document.documentElement;
+  const isDark = body.getAttribute('data-theme') === 'dark';
+  const newTheme = isDark ? 'light' : 'dark';
+  body.setAttribute('data-theme', newTheme);
+  document.getElementById('theme-icon').textContent = isDark ? '🌙' : '☀️';
+  localStorage.setItem('surxondaryo_theme', newTheme);
+}
+
+// Init theme from storage
+(function() {
+  const saved = localStorage.getItem('surxondaryo_theme');
+  if (saved === 'dark') {
+    document.documentElement.setAttribute('data-theme', 'dark');
+    const ico = document.getElementById('theme-icon');
+    if (ico) ico.textContent = '☀️';
+  }
+})();
+</script>
+
+</body>
+</html>

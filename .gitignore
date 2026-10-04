@@ -1,0 +1,10 @@
+# Temporary and cache
+scratch/
+node_modules/
+.DS_Store
+
+# Large legacy monolithic archive
+Surxondaryo_MFY_pasport_tizimi__22_.html
+
+# System logs
+*.log

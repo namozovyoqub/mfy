@@ -1,0 +1,1273 @@
+[
+  {
+    "id": "sec_1",
+    "title": "I. Xonadon to'g'risidagi aniq ma'lumotlar",
+    "title_cyrl": "И. ХОНАДОН ТЎҒРИСИДАГИ АНИҚ МАЪЛУМОТЛАР",
+    "questions": [
+      {
+        "id": "q1",
+        "num": 1,
+        "label": "Tuman (shahar) nomi",
+        "label_cyrl": "Туман номи",
+        "type": "select",
+        "required": true,
+        "options": [
+          "Angor tumani",
+          "Bandixon tumani",
+          "Boysun tumani",
+          "Denov tumani",
+          "Jarqo'rg'on tumani",
+          "Muzrabot tumani",
+          "Oltinsoy tumani",
+          "Qiziriq tumani",
+          "Qumqo'rg'on tumani",
+          "Sariosiyo tumani",
+          "Sherobod tumani",
+          "Sho'rchi tumani",
+          "Termiz tumani",
+          "Termiz shahri",
+          "Uzun tumani"
+        ]
+      },
+      {
+        "id": "q2",
+        "num": 2,
+        "label": "Mahalla nomi",
+        "label_cyrl": "Маҳалла номи",
+        "type": "text",
+        "required": true,
+        "placeholder": "MFY nomini kiriting"
+      },
+      {
+        "id": "q3",
+        "num": 3,
+        "label": "Ko'cha nomi",
+        "label_cyrl": "Кўча номи",
+        "type": "text",
+        "required": true,
+        "placeholder": "Ko'cha nomini kiriting"
+      },
+      {
+        "id": "q4",
+        "num": 4,
+        "label": "Xonadon raqami",
+        "label_cyrl": "Хонадон рақами",
+        "type": "text",
+        "required": true,
+        "placeholder": "Masalan: 12-uy"
+      },
+      {
+        "id": "q5",
+        "num": 5,
+        "label": "Oila boshlig'i ma'lumotlari (F.I.Sh, Tug'ilgan sanasi, Jinsi, Telefon, Ma'lumoti)",
+        "label_cyrl": "Оила бошлиғи маълумотлари",
+        "type": "subgroup",
+        "fields": [
+          {
+            "id": "boshliq_fio",
+            "label": "F.I.Sh",
+            "type": "text",
+            "placeholder": "To'liq familiyasi, ismi, sharifi",
+            "required": true
+          },
+          {
+            "id": "boshliq_sana",
+            "label": "Tug'ilgan sanasi",
+            "type": "date"
+          },
+          {
+            "id": "boshliq_jinsi",
+            "label": "Jinsi",
+            "type": "radio",
+            "options": [
+              "Erkak",
+              "Ayol"
+            ]
+          },
+          {
+            "id": "boshliq_tel",
+            "label": "Telefon raqami",
+            "type": "tel",
+            "placeholder": "+998 90 123 45 67"
+          },
+          {
+            "id": "boshliq_malumoti",
+            "label": "Ma'lumoti",
+            "type": "select",
+            "options": [
+              "Oliy",
+              "O'rta maxsus",
+              "O'rta",
+              "Boshqa"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "q6",
+        "num": 6,
+        "label": "Xonadonda doimiy yashovchi jami aholi soni va yosh toifalari (nafar)",
+        "label_cyrl": "Хонадонда доимий яшовчи жами аҳоли",
+        "type": "subgroup",
+        "fields": [
+          {
+            "id": "jami_aholi",
+            "label": "Jami aholi soni",
+            "type": "number",
+            "min": 1,
+            "required": true
+          },
+          {
+            "id": "erkaklar_soni",
+            "label": "Shundan erkaklar",
+            "type": "number",
+            "min": 0
+          },
+          {
+            "id": "ayollar_soni",
+            "label": "Shundan ayollar",
+            "type": "number",
+            "min": 0
+          },
+          {
+            "id": "yosh_0_3",
+            "label": "0–3 yosh",
+            "type": "number",
+            "min": 0
+          },
+          {
+            "id": "yosh_4_7",
+            "label": "4–7 yosh",
+            "type": "number",
+            "min": 0
+          },
+          {
+            "id": "yosh_8_17",
+            "label": "8–17 yosh",
+            "type": "number",
+            "min": 0
+          },
+          {
+            "id": "yosh_18_30",
+            "label": "18–30 yosh",
+            "type": "number",
+            "min": 0
+          },
+          {
+            "id": "yosh_31_59",
+            "label": "31–59 yosh",
+            "type": "number",
+            "min": 0
+          },
+          {
+            "id": "yosh_60_plus",
+            "label": "60 yoshdan yuqori",
+            "type": "number",
+            "min": 0
+          }
+        ]
+      },
+      {
+        "id": "q7",
+        "num": 7,
+        "label": "Xonadonda vaqtincha yashamayotgan, ammo oila tarkibiga kiruvchi shaxslar soni va sababi",
+        "label_cyrl": "Хонадонда вақтинча яшамаётган шахслар",
+        "type": "subgroup",
+        "fields": [
+          {
+            "id": "vaqtincha_soni",
+            "label": "Soni (nafar)",
+            "type": "number",
+            "min": 0
+          },
+          {
+            "id": "vaqtincha_sabab",
+            "label": "Sababi",
+            "type": "select",
+            "options": [
+              "Mavjud emas",
+              "Xorijda",
+              "Boshqa viloyatda ishlamoqda",
+              "O'qishda",
+              "Harbiy xizmatda",
+              "Boshqa"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "q8",
+        "num": 8,
+        "label": "Oila tarkibi turi",
+        "label_cyrl": "Оила таркиби",
+        "type": "select",
+        "options": [
+          "To'liq oila",
+          "Boquvchisini yo'qotgan oila",
+          "Yolg'iz yashovchi keksa",
+          "Ajrashgan",
+          "Yolg'iz ona/ota"
+        ]
+      },
+      {
+        "id": "q9",
+        "num": 9,
+        "label": "Oilada 3 va undan ortiq farzand bormi?",
+        "label_cyrl": "Оилада 3 ва ундан ортиқ фарзанд борми?",
+        "type": "radio",
+        "options": [
+          "Ha",
+          "Yo'q"
+        ]
+      },
+      {
+        "id": "q10",
+        "num": 10,
+        "label": "Oilada alohida ijtimoiy himoyaga muhtoj shaxs bormi?",
+        "label_cyrl": "Оилада алоҳида ижтимоий ҳимояга муҳтож шахс борми?",
+        "type": "radio",
+        "options": [
+          "Ha",
+          "Yo'q"
+        ]
+      },
+      {
+        "id": "q11",
+        "num": 11,
+        "label": "Oila «Ijtimoiy reyestr»ga kiritilganmi?",
+        "label_cyrl": "Оила «Ижтимоий реестр»га киритилганми?",
+        "type": "radio",
+        "options": [
+          "Ha",
+          "Yo'q",
+          "Ma'lum emas"
+        ]
+      },
+      {
+        "id": "q12",
+        "num": 12,
+        "label": "Oilaga hozirda ijtimoiy nafaqa/moddiy yordam to'lanadimi?",
+        "label_cyrl": "Оилага ҳозирда ижтимоий нафақа/моддий ёрдам тўланадими?",
+        "type": "radio",
+        "options": [
+          "Ha",
+          "Yo'q"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "sec_2",
+    "title": "II. Mehnat va bandlik bo'yicha aniq ma'lumot",
+    "title_cyrl": "ИИ. МЕҲНАТ ВА БАНДЛИК БЎЙИЧА АНИҚ МАЪЛУМОТ",
+    "questions": [
+      {
+        "id": "q13",
+        "num": 13,
+        "label": "18–60 yoshdagi mehnatga layoqatli oila a'zolari (nafar)",
+        "type": "number",
+        "min": 0
+      },
+      {
+        "id": "q14",
+        "num": 14,
+        "label": "Rasmiy ishlaydiganlar (nafar)",
+        "type": "number",
+        "min": 0
+      },
+      {
+        "id": "q15",
+        "num": 15,
+        "label": "Norasmiy ishlaydiganlar (nafar)",
+        "type": "number",
+        "min": 0
+      },
+      {
+        "id": "q16",
+        "num": 16,
+        "label": "Mavsumiy ishlaydiganlar (nafar)",
+        "type": "number",
+        "min": 0
+      },
+      {
+        "id": "q17",
+        "num": 17,
+        "label": "O'zini o'zi band qilganlar (nafar)",
+        "type": "number",
+        "min": 0
+      },
+      {
+        "id": "q18",
+        "num": 18,
+        "label": "Tadbirkorlik bilan shug'ullanuvchilar (nafar)",
+        "type": "number",
+        "min": 0
+      },
+      {
+        "id": "q19",
+        "num": 19,
+        "label": "Xorijda mehnat qilayotganlar (nafar)",
+        "type": "number",
+        "min": 0
+      },
+      {
+        "id": "q20",
+        "num": 20,
+        "label": "Boshqa hududda ishlayotganlar (nafar)",
+        "type": "number",
+        "min": 0
+      },
+      {
+        "id": "q21",
+        "num": 21,
+        "label": "Ishsizlar soni (nafar)",
+        "type": "number",
+        "min": 0
+      }
+    ]
+  },
+  {
+    "id": "sec_3",
+    "title": "III. Ishsizlarni ishga joylashtirish",
+    "title_cyrl": "ИИИ. ИШСИЗЛАРНИ ИШГА ЖОЙЛАШТИРИШ",
+    "questions": [
+      {
+        "id": "q22",
+        "num": 22,
+        "label": "Ishsizlardan ishlash istagi borlar (nafar)",
+        "type": "number",
+        "min": 0
+      },
+      {
+        "id": "q23",
+        "num": 23,
+        "label": "Ishlash istagi yo'qlar (nafar)",
+        "type": "number",
+        "min": 0
+      },
+      {
+        "id": "q24",
+        "num": 24,
+        "label": "Ishlash istagi yo'qligining aniq sababi",
+        "type": "select",
+        "options": [
+          "Mavjud emas",
+          "Bola parvarishi",
+          "Salomatligi sababli",
+          "Qariyalar parvarishi",
+          "Yetarli maosh taklif qilinmagan",
+          "Moddiy ehtiyoji yo'q",
+          "Boshqa"
+        ]
+      },
+      {
+        "id": "q25",
+        "num": 25,
+        "label": "Doimiy ishlash istagi bor ishsizlar (nafar)",
+        "type": "number",
+        "min": 0
+      },
+      {
+        "id": "q26",
+        "num": 26,
+        "label": "Ulardan kasbiy malakasi borlar (nafar)",
+        "type": "number",
+        "min": 0
+      },
+      {
+        "id": "q27",
+        "num": 27,
+        "label": "Kasbiy malakasi yo'qlar (nafar)",
+        "type": "number",
+        "min": 0
+      },
+      {
+        "id": "q28",
+        "num": 28,
+        "label": "Qaysi kasb bo'yicha ishlashni xohlaydi?",
+        "type": "text",
+        "placeholder": "Masalan: Haydovchi, tikuvchi, chilangar..."
+      },
+      {
+        "id": "q29",
+        "num": 29,
+        "label": "Ishlashni xohlaydigan asosiy sohasi",
+        "type": "select",
+        "options": [
+          "Ishlab chiqarish",
+          "Qishloq xo'jaligi",
+          "Xizmat ko'rsatish",
+          "Savdo",
+          "Qurilish",
+          "Ta'lim",
+          "Tibbiyot",
+          "IT va texnologiya",
+          "Boshqa"
+        ]
+      },
+      {
+        "id": "q30",
+        "num": 30,
+        "label": "Qaysi hududda ishlashga tayyor?",
+        "type": "select",
+        "options": [
+          "O'z mahallasida",
+          "O'z tumanida",
+          "Viloyat markazida",
+          "Toshkent shahrida",
+          "Xorijda"
+        ]
+      },
+      {
+        "id": "q31",
+        "num": 31,
+        "label": "Kutilayotgan minimal oylik ish haqi (so'm)",
+        "type": "number",
+        "placeholder": "Masalan: 3000000"
+      }
+    ]
+  },
+  {
+    "id": "sec_4",
+    "title": "IV. Oila daromadi va xarajatlari",
+    "title_cyrl": "ИВ. ОИЛА ДАРОМАДИ",
+    "questions": [
+      {
+        "id": "q32",
+        "num": 32,
+        "label": "Oilaning bir oylik jami daromadi (so'm)",
+        "type": "number",
+        "placeholder": "Masalan: 4500000",
+        "required": true
+      },
+      {
+        "id": "q33",
+        "num": 33,
+        "label": "Oilaning bir oylik o'rtacha xarajati (so'm)",
+        "type": "number",
+        "placeholder": "Masalan: 3800000"
+      },
+      {
+        "id": "q34",
+        "num": 34,
+        "label": "Daromad xarajatni qoplaydimi?",
+        "type": "radio",
+        "options": [
+          "Ha",
+          "Qisman",
+          "Yo'q"
+        ]
+      },
+      {
+        "id": "q35",
+        "num": 35,
+        "label": "Oilaning bir kishi hisobiga oylik daromadi (so'm)",
+        "type": "number",
+        "placeholder": "Masalan: 900000"
+      }
+    ]
+  },
+  {
+    "id": "sec_5",
+    "title": "V. Kredit va qarzdorlik",
+    "title_cyrl": "В. КРЕДИТ ВА ҚАРЗДОРЛИК",
+    "questions": [
+      {
+        "id": "q36",
+        "num": 36,
+        "label": "Oilaning amaldagi krediti bormi?",
+        "type": "radio",
+        "options": [
+          "Ha",
+          "Yo'q"
+        ]
+      },
+      {
+        "id": "q37",
+        "num": 37,
+        "label": "Yangi kreditga ehtiyoj bormi?",
+        "type": "radio",
+        "options": [
+          "Ha",
+          "Yo'q"
+        ]
+      },
+      {
+        "id": "q38",
+        "num": 38,
+        "label": "Kerakli kredit miqdori (so'm)",
+        "type": "number",
+        "placeholder": "Masalan: 33000000"
+      },
+      {
+        "id": "q39",
+        "num": 39,
+        "label": "Kredit maqsadi",
+        "type": "text",
+        "placeholder": "Chorvachilik, issiqxona, savdo..."
+      },
+      {
+        "id": "q40",
+        "num": 40,
+        "label": "Subsidiyaga ehtiyoj bormi?",
+        "type": "radio",
+        "options": [
+          "Ha",
+          "Yo'q"
+        ]
+      },
+      {
+        "id": "q41",
+        "num": 41,
+        "label": "Subsidiyadan foydalanish maqsadi",
+        "type": "text",
+        "placeholder": "Motokultivator, tikuv mashinasi, payvandlash..."
+      }
+    ]
+  },
+  {
+    "id": "sec_6",
+    "title": "VI. Tadbirkorlik",
+    "title_cyrl": "ВИ. ТАДБИРКОРЛИК",
+    "questions": [
+      {
+        "id": "q42",
+        "num": 42,
+        "label": "Oilada tadbirkorlik bilan shug'ullanuvchi bormi?",
+        "type": "radio",
+        "options": [
+          "Ha",
+          "Yo'q"
+        ]
+      },
+      {
+        "id": "q43",
+        "num": 43,
+        "label": "Faoliyat turi",
+        "type": "text",
+        "placeholder": "Ishlab chiqarish, xizmat ko'rsatish, savdo..."
+      },
+      {
+        "id": "q44",
+        "num": 44,
+        "label": "Tadbirkorlikdan o'rtacha oylik daromad (so'm)",
+        "type": "number"
+      },
+      {
+        "id": "q45",
+        "num": 45,
+        "label": "Tadbirkorlikni kengaytirish istagi bormi?",
+        "type": "radio",
+        "options": [
+          "Ha",
+          "Yo'q"
+        ]
+      },
+      {
+        "id": "q46",
+        "num": 46,
+        "label": "Kengaytirish uchun zarur mablag' (so'm)",
+        "type": "number"
+      },
+      {
+        "id": "q47",
+        "num": 47,
+        "label": "Asosiy ehtiyoj",
+        "type": "select",
+        "options": [
+          "Mavjud emas",
+          "Yer / Bino",
+          "Imtiyozli kredit",
+          "Uskuna / Texnika",
+          "Xomashyo",
+          "Ruxsatnoma / Litsenziya",
+          "Boshqa"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "sec_7",
+    "title": "VII. Kasb-hunar va til",
+    "title_cyrl": "ВИИ. КАСБ-ҲУНАР ВА ТИЛ",
+    "questions": [
+      {
+        "id": "q48",
+        "num": 48,
+        "label": "Kasb-hunar o'rganish istagi borlar (nafar)",
+        "type": "number",
+        "min": 0
+      },
+      {
+        "id": "q49",
+        "num": 49,
+        "label": "Qaysi kasbni o'rganmoqchi?",
+        "type": "text",
+        "placeholder": "Tikuvchilik, oshpazlik, IT, payvandlash..."
+      },
+      {
+        "id": "q50",
+        "num": 50,
+        "label": "Xorijiy til o'rganish istagi borlar (nafar)",
+        "type": "number",
+        "min": 0
+      }
+    ]
+  },
+  {
+    "id": "sec_8",
+    "title": "VIII. Ta'lim",
+    "title_cyrl": "ВИИИ. ТАЪЛИМ",
+    "questions": [
+      {
+        "id": "q51",
+        "num": 51,
+        "label": "Maktabgacha yoshdagi bolalar (nafar)",
+        "type": "number",
+        "min": 0
+      },
+      {
+        "id": "q52",
+        "num": 52,
+        "label": "Maktab yoshidagi bolalar (nafar)",
+        "type": "number",
+        "min": 0
+      },
+      {
+        "id": "q53",
+        "num": 53,
+        "label": "Maktabga borayotgan bolalar (nafar)",
+        "type": "number",
+        "min": 0
+      },
+      {
+        "id": "q54",
+        "num": 54,
+        "label": "Maktabga bormayotgan bolalar (nafar)",
+        "type": "number",
+        "min": 0
+      },
+      {
+        "id": "q55",
+        "num": 55,
+        "label": "O'zlashtirishi past bo'lgan bolalar (nafar)",
+        "type": "number",
+        "min": 0
+      },
+      {
+        "id": "q56",
+        "num": 56,
+        "label": "To'garakka qatnashadigan bolalar (nafar)",
+        "type": "number",
+        "min": 0
+      },
+      {
+        "id": "q57",
+        "num": 57,
+        "label": "Qo'shimcha ta'limga ehtiyoj bor bolalar (nafar)",
+        "type": "number",
+        "min": 0
+      },
+      {
+        "id": "q58",
+        "num": 58,
+        "label": "Bolalarning aniq ehtiyojlari",
+        "type": "select",
+        "options": [
+          "Mavjud emas",
+          "Darslik va o'quv qurollari",
+          "Kiyim-kechak",
+          "To'garaklar to'lovi",
+          "Tibbiy yordam",
+          "Boshqa"
+        ]
+      },
+      {
+        "id": "q59",
+        "num": 59,
+        "label": "Oilada oliy/professional ta'lim olayotganlar (nafar)",
+        "type": "number",
+        "min": 0
+      }
+    ]
+  },
+  {
+    "id": "sec_9",
+    "title": "IX. Tibbiy holat",
+    "title_cyrl": "ИХ. ТИББИЙ ҲОЛАТ",
+    "questions": [
+      {
+        "id": "q60",
+        "num": 60,
+        "label": "Oilada doimiy davolanuvchi shaxslar (nafar)",
+        "type": "number",
+        "min": 0
+      },
+      {
+        "id": "q61",
+        "num": 61,
+        "label": "Dori-darmonga doimiy ehtiyoj borlar (nafar)",
+        "type": "number",
+        "min": 0
+      },
+      {
+        "id": "q62",
+        "num": 62,
+        "label": "Nogironligi bo'lgan shaxslar (nafar)",
+        "type": "number",
+        "min": 0
+      },
+      {
+        "id": "q63",
+        "num": 63,
+        "label": "Nogironligi bo'lgan bolalar (nafar)",
+        "type": "number",
+        "min": 0
+      },
+      {
+        "id": "q64",
+        "num": 64,
+        "label": "Tibbiy ko'rikka muhtojlar (nafar)",
+        "type": "number",
+        "min": 0
+      },
+      {
+        "id": "q65",
+        "num": 65,
+        "label": "Oilada davolanish uchun mablag' yetishmasligi mavjudmi?",
+        "type": "radio",
+        "options": [
+          "Ha",
+          "Yo'q"
+        ]
+      },
+      {
+        "id": "q66",
+        "num": 66,
+        "label": "Zarur tibbiy yordam turi",
+        "type": "text",
+        "placeholder": "Jarrohlik, dori-darmon, sanatoriya, reabilitatsiya..."
+      }
+    ]
+  },
+  {
+    "id": "sec_10",
+    "title": "X. Uy-joy va maishiy sharoit",
+    "title_cyrl": "Х. УЙ-ЖОЙ ВА КОММУНАЛ ШАРОИТ",
+    "questions": [
+      {
+        "id": "q67",
+        "num": 67,
+        "label": "Uy-joy maydoni (m²)",
+        "type": "number",
+        "placeholder": "Masalan: 120"
+      },
+      {
+        "id": "q68",
+        "num": 68,
+        "label": "Yashash xonalari soni",
+        "type": "number",
+        "placeholder": "Masalan: 4"
+      },
+      {
+        "id": "q69",
+        "num": 69,
+        "label": "Uyda yashovchilar soniga nisbatan uy-joy yetarlimi?",
+        "type": "radio",
+        "options": [
+          "Ha",
+          "Yo'q"
+        ]
+      },
+      {
+        "id": "q70",
+        "num": 70,
+        "label": "Uy-joy mulk shakli",
+        "type": "select",
+        "options": [
+          "O'z mulki",
+          "Ijara",
+          "Qarindoshlarniki",
+          "Yotoqxona",
+          "Vaqtincha boshpana"
+        ]
+      },
+      {
+        "id": "q71",
+        "num": 71,
+        "label": "Uy-joy hujjatlari holati",
+        "type": "radio",
+        "options": [
+          "To'liq bor",
+          "Qisman bor",
+          "Yo'q"
+        ]
+      },
+      {
+        "id": "q72",
+        "num": 72,
+        "label": "Uy-joy ta'mir holati",
+        "type": "select",
+        "options": [
+          "Yaxshi",
+          "O'rtacha",
+          "Mukammal ta'mir talab",
+          "Avariyaviy holatda"
+        ]
+      },
+      {
+        "id": "q73",
+        "num": 73,
+        "label": "Uyni ta'mirlash uchun taxminiy zarur mablag' (so'm)",
+        "type": "number"
+      }
+    ]
+  },
+  {
+    "id": "sec_11",
+    "title": "XI. Kommunal xizmatlar",
+    "title_cyrl": "ХИ. КОММУНАЛ ХИЗМАТЛАР",
+    "questions": [
+      {
+        "id": "q74",
+        "num": 74,
+        "label": "Tabiiy gaz ta'minoti",
+        "type": "radio",
+        "options": [
+          "Bor",
+          "Yo'q"
+        ]
+      },
+      {
+        "id": "q75",
+        "num": 75,
+        "label": "Elektr energiyasi ta'minoti",
+        "type": "radio",
+        "options": [
+          "Bor",
+          "Yo'q"
+        ]
+      },
+      {
+        "id": "q76",
+        "num": 76,
+        "label": "Ichimlik suvi manbai",
+        "type": "select",
+        "options": [
+          "Markazlashgan",
+          "Quduq",
+          "Artezian",
+          "Tashib kelinadi"
+        ]
+      },
+      {
+        "id": "q77",
+        "num": 77,
+        "label": "Kanalizatsiya mavjudligi",
+        "type": "radio",
+        "options": [
+          "Bor",
+          "Yo'q"
+        ]
+      },
+      {
+        "id": "q78",
+        "num": 78,
+        "label": "Isitish tizimi turi",
+        "type": "text",
+        "placeholder": "Gaz qozoni, o'tin/ko'mir, elektr, pechka..."
+      },
+      {
+        "id": "q79",
+        "num": 79,
+        "label": "Quyosh paneli o'rnatilganmi?",
+        "type": "radio",
+        "options": [
+          "Bor",
+          "Yo'q"
+        ]
+      },
+      {
+        "id": "q80",
+        "num": 80,
+        "label": "Internet aloqasi mavjudligi",
+        "type": "radio",
+        "options": [
+          "Bor",
+          "Yo'q"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "sec_12",
+    "title": "XII. Maishiy texnika ta'minoti",
+    "title_cyrl": "ХИИ. МАИШИЙ ТЕХНИКА",
+    "questions": [
+      {
+        "id": "q81",
+        "num": 81,
+        "label": "Xonadondagi maishiy texnikalar soni",
+        "type": "subgroup",
+        "fields": [
+          {
+            "id": "tex_xolodilnik",
+            "label": "Xolodilnik (dona)",
+            "type": "number",
+            "min": 0,
+            "default": 0
+          },
+          {
+            "id": "tex_tv",
+            "label": "Televizor (dona)",
+            "type": "number",
+            "min": 0,
+            "default": 0
+          },
+          {
+            "id": "tex_konditsioner",
+            "label": "Konditsioner (dona)",
+            "type": "number",
+            "min": 0,
+            "default": 0
+          },
+          {
+            "id": "tex_kiryuvish",
+            "label": "Kir yuvish mashinasi (dona)",
+            "type": "number",
+            "min": 0,
+            "default": 0
+          },
+          {
+            "id": "tex_ariston",
+            "label": "Ariston / Suv isitgich (dona)",
+            "type": "number",
+            "min": 0,
+            "default": 0
+          },
+          {
+            "id": "tex_kompyuter",
+            "label": "Kompyuter / Noutbuk (dona)",
+            "type": "number",
+            "min": 0,
+            "default": 0
+          },
+          {
+            "id": "tex_smartfon",
+            "label": "Smartfon (dona)",
+            "type": "number",
+            "min": 0,
+            "default": 0
+          },
+          {
+            "id": "tex_gazplita",
+            "label": "Gaz plita (dona)",
+            "type": "number",
+            "min": 0,
+            "default": 0
+          },
+          {
+            "id": "tex_avtomobil",
+            "label": "Avtomobil (dona)",
+            "type": "number",
+            "min": 0,
+            "default": 0
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "sec_13",
+    "title": "XIII. Tomorqa va chorvachilik",
+    "title_cyrl": "ХИИИ. ТОМОРҚА ВА ЧОРВАЧИЛИК",
+    "questions": [
+      {
+        "id": "q82",
+        "num": 82,
+        "label": "Tomorqa yer maydoni (sotix)",
+        "type": "number",
+        "min": 0
+      },
+      {
+        "id": "q83",
+        "num": 83,
+        "label": "Tomorqadan foydalanilmoqdami?",
+        "type": "radio",
+        "options": [
+          "Ha",
+          "Yo'q"
+        ]
+      },
+      {
+        "id": "q84",
+        "num": 84,
+        "label": "Issiqxona bormi?",
+        "type": "radio",
+        "options": [
+          "Ha",
+          "Yo'q"
+        ]
+      },
+      {
+        "id": "q85",
+        "num": 85,
+        "label": "Sug'orish imkoniyati",
+        "type": "radio",
+        "options": [
+          "Bor",
+          "Qisman",
+          "Yo'q"
+        ]
+      },
+      {
+        "id": "q86",
+        "num": 86,
+        "label": "Chorva hayvonlari mavjudligi va soni",
+        "type": "subgroup",
+        "fields": [
+          {
+            "id": "chorva_qoramol",
+            "label": "Qoramol (bosh)",
+            "type": "number",
+            "min": 0,
+            "default": 0
+          },
+          {
+            "id": "chorva_qoy",
+            "label": "Qo'y / Echki (bosh)",
+            "type": "number",
+            "min": 0,
+            "default": 0
+          },
+          {
+            "id": "chorva_parranda",
+            "label": "Parranda (dona)",
+            "type": "number",
+            "min": 0,
+            "default": 0
+          }
+        ]
+      },
+      {
+        "id": "q87",
+        "num": 87,
+        "label": "Chorvachilik/parrandachilikni kengaytirish istagi",
+        "type": "radio",
+        "options": [
+          "Ha",
+          "Yo'q"
+        ]
+      },
+      {
+        "id": "q88",
+        "num": 88,
+        "label": "Chorvachilik bo'yicha kerakli yordam",
+        "type": "select",
+        "options": [
+          "Zarurat yo'q",
+          "Chorva mollari olish",
+          "Parranda",
+          "Yem-xashak",
+          "Uskuna",
+          "Kredit",
+          "Subsidiya",
+          "Veterinariya",
+          "Boshqa"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "sec_14",
+    "title": "XIV. Sport va yoshlar",
+    "title_cyrl": "ХИВ. СПОРТ ВА ЁШЛАР",
+    "questions": [
+      {
+        "id": "q89",
+        "num": 89,
+        "label": "Sport bilan muntazam shug'ullanuvchilar (nafar)",
+        "type": "number",
+        "min": 0
+      },
+      {
+        "id": "q90",
+        "num": 90,
+        "label": "Shug'ullanadigan sport turi",
+        "type": "text",
+        "placeholder": "Kurash, futbol, dzyudo, shaxmat..."
+      },
+      {
+        "id": "q91",
+        "num": 91,
+        "label": "Sport inshootiga ehtiyoj bormi?",
+        "type": "radio",
+        "options": [
+          "Ha",
+          "Yo'q"
+        ]
+      },
+      {
+        "id": "q92",
+        "num": 92,
+        "label": "Yoshlarning asosiy ehtiyoji",
+        "type": "select",
+        "options": [
+          "Sport",
+          "Kasb-hunar",
+          "Til o'rganish",
+          "IT va zamonaviy kasblar",
+          "To'garak",
+          "Ishga joylashish",
+          "Boshqa"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "sec_15",
+    "title": "XV. Oilaning eng asosiy 3 ta muammosi",
+    "title_cyrl": "ХВ. ОИЛАНИНГ ЭНГ АСОСИЙ 3 ТА МУАММОСИ",
+    "questions": [
+      {
+        "id": "q93",
+        "num": 93,
+        "label": "1-o'rindagi asosiy muammo",
+        "type": "text",
+        "placeholder": "Masalan: Ishsizlik, uy-joy yetishmovchiligi...",
+        "required": true
+      },
+      {
+        "id": "q94",
+        "num": 94,
+        "label": "2-o'rindagi muammo",
+        "type": "text",
+        "placeholder": "Masalan: Gaz ta'minoti, davolanish xarajatlari..."
+      },
+      {
+        "id": "q95",
+        "num": 95,
+        "label": "3-o'rindagi muammo",
+        "type": "text",
+        "placeholder": "Masalan: Tomorqani sug'orish suvi..."
+      }
+    ]
+  },
+  {
+    "id": "sec_16",
+    "title": "XVI. Oilaning eng asosiy 3 ta ehtiyoji",
+    "title_cyrl": "ХВИ. ОИЛАНИНГ ЭНГ АСОСИЙ 3 ТА ЭҲТИЁЖИ",
+    "questions": [
+      {
+        "id": "q96",
+        "num": 96,
+        "label": "1-ehtiyoj",
+        "type": "text",
+        "placeholder": "Masalan: Imtiyozli kredit yoki subsidiya...",
+        "required": true
+      },
+      {
+        "id": "q97",
+        "num": 97,
+        "label": "2-ehtiyoj",
+        "type": "text",
+        "placeholder": "Masalan: Kasbga o'qitish va ishga joylashish..."
+      },
+      {
+        "id": "q98",
+        "num": 98,
+        "label": "3-ehtiyoj",
+        "type": "text",
+        "placeholder": "Masalan: Uy ta'miri uchun qurilish materiallari..."
+      }
+    ]
+  },
+  {
+    "id": "sec_17",
+    "title": "XVII. Mas'ul xodim xulosasi va yakuniy baholash",
+    "title_cyrl": "ХВИИ. МАСЪУЛ ХОДИМ ХУЛОСАСИ",
+    "questions": [
+      {
+        "id": "q99",
+        "num": 99,
+        "label": "Oilaning ijtimoiy-iqtisodiy holati toifasi",
+        "type": "subgroup",
+        "fields": [
+          {
+            "id": "ijtimoiy_holat",
+            "label": "Ijtimoiy holati",
+            "type": "select",
+            "options": [
+              "Barqaror",
+              "O'rtacha",
+              "Qiyin",
+              "Og'ir"
+            ],
+            "required": true
+          },
+          {
+            "id": "iqtisodiy_holat",
+            "label": "Iqtisodiy holati",
+            "type": "select",
+            "options": [
+              "Barqaror daromadli",
+              "Daromadi past",
+              "Kam ta'minlangan",
+              "Daromad manbai mavjud emas"
+            ],
+            "required": true
+          },
+          {
+            "id": "birinchi_navbat_masala",
+            "label": "Birinchi navbatda hal qilinishi kerak bo'lgan masala",
+            "type": "text",
+            "placeholder": "Xulosa va tavsiya",
+            "required": true
+          }
+        ]
+      },
+      {
+        "id": "q100",
+        "num": 100,
+        "label": "So'rovnomani to'ldirgan mas'ul xodim va sana",
+        "type": "subgroup",
+        "fields": [
+          {
+            "id": "masul_fio",
+            "label": "Mas'ul xodim F.I.Sh",
+            "type": "text",
+            "placeholder": "Masalan: Abdullayev Olim Karimboyevich",
+            "required": true
+          },
+          {
+            "id": "masul_lavozim",
+            "label": "Lavozimi",
+            "type": "select",
+            "options": [
+              "MFY raisi",
+              "Hokim yordamchisi",
+              "Xotin-qizlar faoli",
+              "Yoshlar yetakchisi",
+              "Profilaktika inspektori",
+              "Ijtimoiy xodim",
+              "Boshqa"
+            ],
+            "required": true
+          },
+          {
+            "id": "masul_tel",
+            "label": "Telefon raqami",
+            "type": "tel",
+            "placeholder": "+998 90 123 45 67"
+          },
+          {
+            "id": "toldirilgan_sana",
+            "label": "To'ldirilgan sana",
+            "type": "date",
+            "required": true
+          }
+        ]
+      }
+    ]
+  }
+]
